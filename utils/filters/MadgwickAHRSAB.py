@@ -64,17 +64,12 @@ class MadgwickAHRSAB:
                 gradient = J.T@f                                    # (eq. 34)
                 gradient /= np.linalg.norm(gradient)
                 qDot -= self.beta*gradient                          # (eq. 33)
+   
+        
         self.AB_window.appendleft(qDot)
-        
-        ab_window_arr = np.array(self.AB_window) 
-
-        
-        
+        ab_window_arr = np.array(self.AB_window)   
         update_factor = (self.coefficients[degree-1].reshape((1,10)) @ ab_window_arr).reshape((4,))
         
-
-        
-
         q_new = q.elements + (update_factor)*dt   # (eq. 13)
         q_new /= np.linalg.norm(q_new)
         
